@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wijdane Abouzaid - Portfolio</title>
+    <meta name="description" content="Portfolio de Wijdane Abouzaid, élève ingénieure en Science des Données, Big Data et Intelligence Artificielle">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffa8c5;
+            --secondary: #ffd6e5;
+            --accent: #fff0f5;
+            --text: #3a3a3a;
+            --text-light: #8a7880;
+            --bg: #fffbfc;
+            --white: #fff;
+            --shadow: 0 10px 30px rgba(255,168,197,0.18);
+            --gradient: linear-gradient(135deg, #ffd6e5, #ffa8c5);
+            --hero-gradient: linear-gradient(135deg, #ffb8d1, #ff8fb3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 3px;
+        }
+
+        .burger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--hero-gradient);
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--white);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: var(--white);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            height: 200px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: var(--bg);
+            color: var(--text);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .project-link {
+            margin-top: auto;
+            align-self: flex-start;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .project-link i {
+            margin-left: 4px;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--hero-gradient);
+            color: var(--white);
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .submit-btn {
+            padding: 15px 30px;
+            background: var(--white);
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            justify-self: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #6b3f4c;
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--white);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Wijdane Abouzaid</div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#accueil" class="nav-link">Accueil</a></li>
+                <li><a href="#about" class="nav-link">À propos</a></li>
+                <li><a href="#projects" class="nav-link">Projets</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h1>Wijdane Abouzaid</h1>
+            <p class="subtitle">Future Ingénieure en Big Data & Intelligence Artificielle — Passionnée par le Machine Learning, la Computer Vision et le développement full-stack</p>
+            <a href="#projects" class="cta-button">Voir mes projets</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">À propos de moi</h2>
+            <div class="about-content fade-in">
+                <div class="about-image">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAEdATYDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2miiiqAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACikJC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7uV+lX2tbVtmLzbnqGHPSnymqiupNZQQg53RlvrzRe5hkDKeapTweWSIp3fnqF7VVgtb9pPNubksgPyxKOB+NJxBqyujatrssKZq2qR6XZpczOioZURjI2Bjqf0FFtGsagDmuI+J2oK7WGlo+SubiQfXhf60U480rHPVnZGBHqCah40lvYdwhku/MQOc/LuGP0r6mHIGOlfItjIYJ0kHevqXw1qH9qeG7C8/ieEBvqOD/Ku6OjscFXZM1aKKK0MAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigApkjiONnPQDNPrm/F+rf2fpMpHVsqo9TilsNK7scF458RxXUjWKPkId0hB/iNeXXlwssi7htK9q1JZTJcyTSH55Rz9c1l3caNcB+xxkVC3OtK0bI0PB19LZayI1OY7gbZF+nINeqW211DDmvJPD6ldbTjhATmvS7W4MDA9VPWuWt8RvSbUS/d25dNwzkfxCstjMODg+5FdDHcRyRg5FMZ484Kg5rLmaOuFVpaGRbo7keYSR2AHFaBXCYxx6VZDwqnAAqpLLvbC0XbJnNy3KWoalBpNnJc3DfIg4Hdj2AryHUbi5v7yfUrnmSds47KOwH0Fdt8QY2W208jO3e+4++BXIFfMtVXuBx9RXVRSSucdS7ditbOjYQ+tfQXwqvVn8J/Zt+5reUr+B5r57aHo8ZHPpXpnwX1SSLX7rTnPyTw7sf7S1qtzGavBo9xooorQ5QooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBH+7XlvxB1DdepabvljQE49TXo+pX1vp9o09xKsaD17+wrwzV759T1Ka5fgyOWx6DsKib6G1GN3c5+6jIuFx681mXOXmwOpOBWzKysssx/CskHzLxFzyTUJnU9Desbf7PfpCFxtQP9c11sPMdV9Q0hoo7PVI1zG0axSY/hPY/rViDla5am5pBprQervEflPHpSm929UbPtT9maYYec1kaajluXl6Lge9XbaPPJqqkQWriyLEm5jimMVtGXWtUs7N0DwsX88Hsm0/1xXkV3bvpWq3mmXiFWt5mjyevB4P5YNfR3hvTTbWpu51xPOM4P8K9hXj/xVtkXx3I6rjzLeMtjueR/QV20YWjZnBUq3nocXJFGFzn5T/GB0+tdP8N5ZLPxxYGbBicsqyqeGBHHNcm0hs5DkZQ9q0dMUwXKXVhOYnVg3ln1qpKxSakj6loqhol8dS0WzvGOWliDN9e9X61WxySVmFFFFAgooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAorK1zxDp3h62Wa/m27zhI0GWb6CuJ1H4sxopWw0457PO//so/xoA9LrNv/EGkaYrG81G3iK9V35P5CvFNT8a63q5Kz3jqh4EcXyL+Q61zl3drAm6Vgz9Qvp/jUt2NI077noXi3xRBrtwosy5to/lVm43HucVxc0rGacAYxwv5U3TXdrYPI2Wc96jck7yeuf6Vi9WdkI2VkUry42RbF/jYqPwrNgm23kMj9FZWPsM1dvYT5MWOxz+Y5rPRfMcqBx0rSC0M6r1PobQLeC+0X7HOoZGTaR7VzN5ps2k6i9pLyByj/wB5exrofCFwsmj6fcpgmaFSRnv3/ka6HW9NttSsF81xHIhzFIexPb6GsqkOZE05uMtdjz8CnBfWrs+nzW0nlzIVf9D9Kalq7sqAZLHAHqa5eU71JWuU8+la3hvSG1W++0zj/Q4G6HpI/p9BWufDttbwjzY5Jm/iO/aP0rS0m8jX/QtkcQRcoEGBit6dKz1OWrWvG0TXPCGvCPibMkvilVH3kjy34nj+Ve3S3SCTyXIBIyuW6186+JL3+0fEV/cjkNMwX/dHA/lXVGzZxJGRLCsqlWGRWega2do25TNaZPHvVecg4JAIPFW0WnY9h+GXjPTV0JdL1G+SC5ikPlmY7QynpzXpkc0UyhopEkU90YGvkxgIyGXircN5NHtMc0iH1VyP5UrEtX1Pquivm+x8X6/poBttXuhj+CR96/k2a7LRPi/cqyxazZJKneaD5W/756GgXKevUVQ0nWtP1u1+0WFysqfxDoy/Udqv0E2CiiigAooooAKKKKACiiigAooooAKKKKACiiigApskiRRvI7bURSzE9gKdXG/EfXP7L0D7HE2J7zKfRP4v8KBrU8t8U64+u61LeOT5W/ESn+FR0rEZjIwCgn2qOZ8yJnkk9BV1iLWPef8AWt9xaUpWNYQuQylLKIqMNckcn+77CsWRWlfezZxwB71eNvJMxaVvmPzEDsKryjCIiD5mPAHJxUXNrGtbkraoyn+Elf1pqsN8in+9u/AioHuzb2kKhDhRg1Gt3G03p/Bg1FjZD9RH+gqeck9RWdGvzn3rWnX7QgCnI24/wNZqjDEHqOK0p7GFXc9K8ATXtxbpBBcJHJEUVOOWT58/ln9RXb6hdTXNzHFG5K2/GR0Zu9cf8N53GlXMUaKJPNwZMcgECu6hsxGAVFQ46si47K3lt5UqkKR8rf3T607StIZAbiQYkViEB6D/AGq0LW3R4SuOfSrqIUQIvQdzR7NN3ZLqtLlRm3cTpbsd7eg+tZRie2ZJVGXzk+49K6G4TzHVSSQvP41WaASSjI4HJptCi9DD8WlE0SS6WTbDtLAA/OGC8AfQ14SSzNk8k8mvZPiDIkHh66YDDSbYx+JGf0rxvvirgrCYx8kHHWqzCR+CAB1zmrJPze1QS/JuPtVgyu7bhipYxhagQZarHQUAKXwalgwzYNVnNTW5w1AGrp+qXml6lbXFnO8UkZzlTwR6H2r6L0TU01nRrW/TjzkywHZu4/OvmNGzcMewr2n4T6h52j3dizZMMvmL9G/+uKQmj0KiiiggKKKKACiiigAooooAKKKKACiiigAooooAK8P+JmpG68VzRA5S1RYlHvjJ/U17hnHJ6V846rKdU16+umb5HndifbNJuxcFdmdBAS6Svx/dB9PWpNjXNyWAzt6Z7Cobi43S+VG4yThiOi+1JJeBY2CcDdge/uaxu27nWkkrCXciRI8Ct87/AHiOwqWwhjUNM65wNqis0KGnJ5bPJNaS7mtIUTq0uM05bDjqye72OqptHXc3v7UwWcKyQpgbuGJqDduvm9NtSvI0aozclTj/AD+VRc1SLcVokVmTuywzWPdIFvHUeufzrSMrlNg4DZH41kSMZLuR2PVq0pbmNdaHovwzcCe+hz1VHH5kV6lECFzXj/w6m8vxEI/+esLL+WD/AEr2OMYWqluc3QsWo/eE4xxVqoLYfeNT0IzZE3OaZt2qTUnemycKaQ0eZfFG4AsrSDPMkpYj2Uf/AF68u713XxMud+t21v2jh3H6sf8A6wrhjWkdh9SJ6rTvmPHrVhzzVWUhpMelUA1BzUpPFMUYNK1AEbdalifYCx7DNQnrT/8Alk/+7SAfA4A3MeTzXpHwp1HyvE7W38NxCy/iPm/oa8wiVm68Cuq8F3f2HxTps2cATqp+h4/rSYz6QooooMwooooAKKKKACiiigAooooAKKKKACiiigDN8Q339m+Hr+77xwtt/wB4jA/U1823l0YI/Jj+8eWPvXtHxR1LyNFt7BWwbiTe/wDur/8AXIrwiY+bOzZJAJ/Gs5aysdFNcsbi26OeWGOecVO6fulYZA54pbJBJI6Z/hyPep5D5du+epPSpe5rHYrRKEZD1b0raVFSGEMcbPmP+9WPbsxk3key1Z3yTAk/dPH4VE30Nacb6jtha3Z05dj8p/lT7tcWp9d39aYkm512cIh/Op53QxBW+7uyfelcsV1xa7l5KnmstwBN6mtN/ltRnuCxFZKuZHLdCea1pHPXZ0/g6byPE+mtnAaUIf8AgXy/1r3sWzCMdM185aZN9muoJu8cquPwOa+lY5FliV16MNwrSSOVsbChSPB61JRRSIG7eaUgY5FL0FRzS+VEz4zjmkNHgvjq5Fz4x1Fl+6jiIf8AAQB/PNcyauahcG6vri4blpZWk/M5qkxrUaI5BwSaqIM8nr1qxOxCY9ahHFAwA5oand6Y3WgCI5zT84iY+1MPWlkH+juKBCxvnha07CX7NcRS55R1b8jWVB8oq3G2T7VI0fVkMqzwRzKcrIoYH6in1geCr7+0PCGnS5yyx+U31Xit+ggKKKKACiiigAooooAKKKKACiiigAoJwM0V5x8T/Frabbro9rNslmXdcOp+ZUPRR9f5fWk3ZXKjHmdjjfiT4kj1XXZIbZw8cS+SjA8f7R/OuDchcAKOKdyzM57nj6VFI+3rmpiramsn0Rr6RAS5lI2qAQPWor8gBkH8TYH4U21vCsJAOB0qaztzdTb3+4hrJuzuzoivdHQW4FuH9emabcyLbxrGOuNvH6mp7uY/aY4UX5sjgfwis+TbNOqn5ju5xUbu7NlorIt2cZnX7uBin3BVpCgx8wPIotnZbOYj7/KjiqxhZLiMlucEn6YpoNi1dMFjQ/wiMrWXH2I6VbuZNtuYyPnB3fryKo2r7o+O3FbUzlrmjCelfRegztc6DYTb877eM/8Ajor5yiNe8eAbn7R4MsyTkx74/wAmOP6VpLY5jqV+6KWkHSlqSQx61k+KLv7D4Z1G4zgrA2PqRgfqa1q4v4oXn2fwp5IODcTKn4D5j/IUIDxN6hJzT3PNRE8HNaFIgmOZNvpTR0pqncSx704UDDtTGqSo3oER96Jzi3P1ApR1qO6OIAP9ql0DoOthnrVoHBGKp25JWrBkAOKBo9u+EWoebpV7YFuYZBIo9mHP6ivR6+ePBviqPwrq0V5cKzWkv7mYL1Ck/e/A19BwTxXNvHPC4kikUMjr0YHvSFIkooooJCiiigAooooAKKKKACiiigAr5p+JEly3jfUmmY4+07QPRQBivpavnH4hzpe+M9W29BNsB91AH9KT3Ki7HMu3y9aqTHpQ0jL8rcEUx23LTHct2fMZB/hauhLiw0wHGXx+tc5prjztjHrXQaiu6zGOep/lXPP4rHZT+Ez7VmlyznLc8/jVu2hWPfJgFs/LVWzTKvngFuKueaqK5z8u9Qfb3qZbmq2J7bY1rgf71RuqHUbc5wv3D+NUre48uSSI/wAL/lUZudl027+FxjP1oGOvF/fzbR0fFZ1u4ScgdGP61fvXzLIOn7xqzJQUbfzuHX61vT2OSrua8ZGa9m+F9x5nh24gJ/1Vxx/wICvFIHDICOmK9V+FNxhdSh94n/8AQhWj2Odnqa/dFLTYzmJD7U6oJAda8r+Lt7uu9OsgfuI0rD6nA/ka9TzXhnxJuvP8ZXS5yIUSP/x3P9acdxo45yDVa4YKuO7VKx5qo7b5vYcVY0PAGKKOaKACmGnU00AMAGc5qC7PCDjrU5NVLk7plHtQBLGdqU9TzUa5PHanbDng0holmYzRJAvJLA1798KdQe68LPau5Y2kuxc9lIyB/OvArcxq2Acv61698F7rdJq1tntG4/UUg6HrVFFFBAUUUUAFFFFABRRRQAUUUUANdxGjO33VBY18qapctd6ldXJOTNKz/mc19L+KJ3tfCuqTR/fS1kx/3zXy67HbSKRG6+Z1HNV3Tb3qfsarsDnqaY7EtoGFwrEcdK66dc2sYboV5rlbElroKTxkV0RkabTUZjyVPT61z1d0dlBaEFquFbjgE1Sa7VLwo+NjcN9DVu2Y+Q7d+ayL9QsqkeooirmknZFiVWivmySfWpriLLF8fdwWptx8xRz1YDP5Yq6y744GJ5eLn8qTGtihctmYvj5H5qtICwHcjg1NL/y0TsrDH5VGFwoGc/Ka2i9Dlqbklm4C7DwRXo/wzufL1i5jzgPb5/Jh/ia8xtWPnge1d78P5CniaJR0aF8/z/pWnQwPdrdt1vGf9kVLVWxY/ZIf9wVO/wB2oJFY8V86eK7r7Z4o1ScHIa5cD6A4H8q+g5pCkbsOqgkV8yTyNLK8jdWZifxOaqIFeZ9qE96qpxTrliXVe2aYDxTGSbqUHtUWaUfeFMY8tTGahuTUbHNIQZqozg3Zz0HFWaz8/vHPvQBfLqF68VC07SHbH09arkljgmrVugxmgCeBPL5716N8HrtofGD256T2zj8Rg153H1rtvhyxi8eaWV/iLKfoUNIZ9C0UUUEBRRRQAUUUUAf/2Q==" alt="Photo de Wijdane Abouzaid" loading="lazy">
+                </div>
+                <div class="about-text">
+                    <h3>Data Scientist passionnée par l'IA</h3>
+                    <p>Je possède une expérience pratique couvrant le machine learning, la vision par ordinateur, l'analyse de Big Data et le développement full-stack. Je développe actuellement mon expertise dans le cadre d'un cycle d'ingénieur en Data Science, Big Data & IA à l'ENSIASD de Taroudant.</p>
+                    <p>Au fil de mes stages chez Medios Santé, YOOL Education, CINK et BECAGRI Consulting, j'ai appris à transformer des jeux de données complexes en informations exploitables, allant des systèmes de prédiction en temps réel au traitement intelligent de documents et d'images médicales.</p>
+                    <div class="skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">MERN Stack</span>
+                        <span class="skill-tag">Big Data</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Mes Projets</h2>
+            <div class="projects-grid fade-in">
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-lungs" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Segmentation Pulmonaire par Deep Learning</h3>
+                        <p>Système de segmentation automatique des poumons (droit/gauche) sur radiographies thoraciques, en comparant plusieurs architectures de deep learning. Meilleur modèle : U-Net++ / ResNet34 (Dice 0,9893), déployé via une interface Streamlit.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">Streamlit</span>
+                        </div>
+                        <a href="https://github.com/wijdaneabou/chest-xray-lung-segmentation" class="project-link" target="_blank" rel="noopener noreferrer">Voir le code <i class="fab fa-github"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-robot" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>StockAI — Agent IA pour la Gestion des Stocks</h3>
+                        <p>Agent IA autonome capable d'analyser les stocks en temps réel, prévoir la consommation, recommander les réapprovisionnements via LLM, puis automatiser les commandes via API fournisseur avec validation humaine. Projet réalisé au Hackathon GEIW 2026.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">LLM</span>
+                            <span class="tech-tag">API</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-glasses" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Essai Virtuel de Lunettes avec IA</h3>
+                        <p>Application d'essai virtuel avec détection en temps réel du visage et recommandation automatique de lunettes selon la forme faciale détectée par IA.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">JavaFX</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">MobileNetV2</span>
+                        </div>
+                        <a href="https://github.com/wijdaneabou/VirtualGlasses" class="project-link" target="_blank" rel="noopener noreferrer">Voir le code <i class="fab fa-github"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-globe" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Plateforme Web CINK</h3>
+                        <p>Conception et développement d'une plateforme web complète pour la communauté CINK, centralisant l'accès aux ressources, formations et événements de réseautage.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Express.js</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-seedling" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Application de Fertilisation</h3>
+                        <p>Application desktop de fertilisation pour l'agriculture, fournissant des recommandations d'engrais à utiliser selon le type de sol et de plante.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">PyQt5</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-clipboard-question" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Générateur de Quiz QCM par LLM</h3>
+                        <p>Application intelligente générant automatiquement des QCM à partir de paramètres pédagogiques (titre, matière, niveau) à l'aide d'un Large Language Model.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">LLM</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title fade-in">Contactez-moi</h2>
+                <p class="fade-in">Vous avez un projet en tête ? N'hésitez pas à me contacter pour en discuter !</p>
+                
+                <form class="contact-form fade-in" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Votre nom" required>
+                        <input type="email" name="email" placeholder="Votre email" required>
+                    </div>
+                    <input type="text" name="subject" placeholder="Sujet" required>
+                    <textarea name="message" rows="5" placeholder="Votre message" required></textarea>
+                    <button type="submit" class="submit-btn">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="mailto:wijdane.abouzaid3@gmail.com" title="Email" aria-label="Email">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/wijdane-abouzaid-0b4256255" title="LinkedIn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </a>
+                <a href="https://github.com/wijdaneabou" title="GitHub" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <a href="tel:+212689602836" title="Téléphone" aria-label="Téléphone">
+                    <i class="fas fa-phone" aria-hidden="true"></i>
+                </a>
+            </div>
+            <p>&copy; 2026 Wijdane Abouzaid. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        let ticking = false;
+        const navbar = document.getElementById('navbar');
+        
+        function updateNavbar() {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateNavbar);
+                ticking = true;
+            }
+        });
+
+       
+        const burger = document.getElementById('burger');
+        const navMenu = document.getElementById('nav-menu');
+
+        burger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav-link')) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+       
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission 
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Message envoyé avec succès !');
+                e.target.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+
+     
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
