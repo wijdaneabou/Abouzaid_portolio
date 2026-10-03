@@ -1,789 +1,209 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wijdane Abouzaid - Portfolio</title>
-    <meta name="description" content="Portfolio de Wijdane Abouzaid, élève ingénieure en Science des Données, Big Data et Intelligence Artificielle">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #ffa8c5;
-            --secondary: #ffd6e5;
-            --accent: #fff0f5;
-            --text: #3a3a3a;
-            --text-light: #8a7880;
-            --bg: #fffbfc;
-            --white: #fff;
-            --shadow: 0 10px 30px rgba(255,168,197,0.18);
-            --gradient: linear-gradient(135deg, #ffd6e5, #ffa8c5);
-            --hero-gradient: linear-gradient(135deg, #ffb8d1, #ff8fb3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background: var(--bg);
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            box-shadow: var(--shadow);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .burger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 3px;
-        }
-
-        .burger span {
-            width: 25px;
-            height: 3px;
-            background: var(--text);
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: var(--hero-gradient);
-            color: var(--white);
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 0 2rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-        }
-
-        .hero .subtitle {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: rgba(255,255,255,0.2);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .cta-button:hover {
-            background: var(--white);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* Sections */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: var(--gradient);
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            color: var(--text-light);
-            line-height: 1.8;
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .skill-tag {
-            background: var(--gradient);
-            color: var(--white);
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Projects Section */
-        .projects {
-            background: var(--white);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .project-image {
-            height: 200px;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 3rem;
-        }
-
-        .project-content {
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .project-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-content p {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .tech-tag {
-            background: var(--bg);
-            color: var(--text);
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-        }
-
-        .project-link {
-            margin-top: auto;
-            align-self: flex-start;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .project-link i {
-            margin-left: 4px;
-        }
-
-        .project-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: var(--hero-gradient);
-            color: var(--white);
-        }
-
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-form {
-            display: grid;
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .form-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: var(--white);
-            font-size: 1rem;
-            transition: background 0.3s ease;
-        }
-
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            background: rgba(255,255,255,0.2);
-        }
-
-        .submit-btn {
-            padding: 15px 30px;
-            background: var(--white);
-            color: var(--primary);
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            justify-self: center;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        .footer {
-            background: #6b3f4c;
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--accent);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .burger {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: var(--white);
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                padding-top: 2rem;
-                transition: left 0.3s ease;
-                box-shadow: var(--shadow);
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding: 3rem 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .project-content {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wijdane Abouzaid — Big Data, Data Science & IA</title>
+<meta name="description" content="Portfolio de Wijdane Abouzaid, élève ingénieure en Science des Données, Big Data et Intelligence Artificielle, à la recherche d'un stage PFE.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f9fd;--bg2:#eaf0fb;--card:#fff;--v:#1e3a8a;--v2:#3b6fd4;--vl:rgba(30,58,138,.09);--t:#0f172a;--t2:#475569;--t3:#8591a5;--bd:rgba(15,23,42,.11);--sh:0 4px 24px rgba(30,58,138,.12);--g:rgba(247,249,253,.9)}
+[data-theme=dark]{--bg:#0c1220;--bg2:#111a2e;--card:#16213a;--v:#9db8ff;--v2:#c3d4ff;--vl:rgba(157,184,255,.14);--t:#eef2fb;--t2:#c0c9da;--t3:#7f8aa0;--bd:rgba(255,255,255,.09);--sh:0 4px 24px rgba(0,0,0,.4);--g:rgba(12,18,32,.9)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--t2);line-height:1.7;transition:background .3s}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;color:var(--t);line-height:1.15}
+a{color:inherit;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:.9rem 5%;background:var(--g);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd)}
+.logo{font-family:Fraunces,serif;font-weight:800;color:var(--t);font-size:1.2rem}.logo b{color:var(--v)}
+.links{display:flex;gap:1.6rem}.links a{font-size:.75rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--t3)}.links a:hover{color:var(--v)}
+.ctl{display:flex;gap:.5rem;align-items:center}
+.pill{border:1px solid var(--bd);background:var(--vl);color:var(--v);border-radius:99px;padding:.35rem .8rem;font:600 .75rem Outfit;cursor:pointer}
+.pill:hover{background:var(--v);color:#fff}
+section{padding:6rem 5%}.wrap{max-width:1100px;margin:0 auto}
+.alt{background:var(--bg2)}
+.tag{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--v);margin-bottom:.6rem}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:2.5rem}
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:7rem;background:radial-gradient(circle at 85% 15%,var(--vl),transparent 45%)}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:4rem;align-items:center}
+.hero h1{font-size:clamp(2.6rem,6vw,4.6rem);margin:.4rem 0 1rem}
+.hero h1 span{background:linear-gradient(120deg,var(--v),var(--v2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font-weight:600;color:var(--v)}
+.lead{max-width:560px;margin:1rem 0 2rem;border-left:3px solid var(--v);padding-left:1.2rem}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{padding:.8rem 1.6rem;border-radius:99px;font-weight:600;font-size:.88rem;border:1px solid var(--bd);transition:.25s}
+.btn.p{background:linear-gradient(120deg,var(--v),var(--v2));color:#fff;border:0;box-shadow:0 4px 20px rgba(30,58,138,.3)}
+.btn:hover{transform:translateY(-2px)}
+[data-theme=dark] .btn.p{color:#0c1220}[data-theme=dark] .pill:hover{color:#0c1220}
+.photo{width:min(320px,70vw);aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:50% 25%;justify-self:center;border:8px solid #fff;box-shadow:var(--sh);background:#fff}
+.badge{display:inline-block;margin-top:1.5rem;font-size:.8rem;font-weight:600;background:var(--vl);color:var(--v);padding:.3rem .9rem;border-radius:99px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.edu div,.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:1.4rem;box-shadow:var(--sh)}
+.edu{display:grid;gap:1rem}.edu b{color:var(--t);display:block;font-weight:600}.edu span{display:block;color:var(--t2);font-size:.92rem;margin-top:.15rem}.edu small{color:var(--v);font-weight:600;display:block;margin-top:.35rem}
+.tl{border-left:2px solid var(--bd);padding-left:2rem;display:grid;gap:2.2rem}
+.tl article{position:relative}.tl article::before{content:"";position:absolute;left:-2.62rem;top:.45rem;width:.9rem;height:.9rem;border-radius:50%;background:var(--v);border:3px solid var(--bg)}
+.tl .d{font-size:.75rem;font-weight:700;color:var(--v);letter-spacing:.06em}
+.tl h3{font-size:1.15rem}.tl .co{font-weight:600;color:var(--v2)}
+.tl ul{margin:.6rem 0 0 1rem}.tl li{margin-bottom:.35rem;font-size:.93rem}
+.tl .chips{margin:.6rem 0 0}
+.proj{display:grid;gap:.4rem;margin-bottom:2rem;padding:1.8rem;background:var(--card);border:1px solid var(--bd);border-radius:20px;box-shadow:var(--sh)}
+.proj h3{font-size:1.4rem;margin:.4rem 0}
+.k{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--v)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0}
+.chips span{font-size:.72rem;font-weight:600;padding:.25rem .7rem;border-radius:99px;background:var(--vl);color:var(--v)}
+.plink{color:var(--v);font-weight:600;font-size:.88rem}.plink:hover{text-decoration:underline}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.mini .card{transition:.25s}.mini .card:hover{transform:translateY(-4px)}.mini h3{font-size:1.05rem;margin:.3rem 0 .5rem}.mini p{font-size:.88rem}
+.sk{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
+.sk h3{font-size:1rem;font-family:Outfit;font-weight:700;margin-bottom:.8rem}
+.sk .chips{margin:0}
+.cta{text-align:center;max-width:760px;margin:0 auto}.cta p{margin:0 auto 1.6rem}
+.ct{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:1.4rem}
+footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--t3);border-top:1px solid var(--bd)}
+@media(max-width:820px){.links{display:none}.hero,.two{grid-template-columns:1fr}.mini{grid-template-columns:1fr}.photo{order:-1;width:200px}}
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="logo">Wijdane Abouzaid</div>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#accueil" class="nav-link">Accueil</a></li>
-                <li><a href="#about" class="nav-link">À propos</a></li>
-                <li><a href="#projects" class="nav-link">Projets</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+<nav>
+  <a href="#" class="logo">W<b>.</b>Abouzaid</a>
+  <div class="links">
+    <a href="#about" data-en="Profile">Profil</a><a href="#exp" data-en="Experience">Expérience</a><a href="#projects" data-en="Projects">Projets</a><a href="#skills" data-en="Skills">Compétences</a><a href="#contact">Contact</a>
+  </div>
+  <div class="ctl">
+    <button class="pill" id="lang">EN</button>
+    <button class="pill" id="theme" aria-label="Thème">🌙</button>
+  </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="accueil">
-        <div class="hero-content">
-            <h1>Wijdane Abouzaid</h1>
-            <p class="subtitle">Future Ingénieure en Big Data & Intelligence Artificielle — Passionnée par le Machine Learning, la Computer Vision et le développement full-stack</p>
-            <a href="#projects" class="cta-button">Voir mes projets</a>
-        </div>
-    </section>
+<section id="hero"><div class="wrap hero">
+  <div>
+    <p class="role" data-en="Big Data · Data Science · Artificial Intelligence">Big Data · Data Science · Intelligence Artificielle</p>
+    <h1>Wijdane <span>Abouzaid</span></h1>
+    <p data-en="Fifth-year engineering student · ENSIASD Taroudant">Élève ingénieure en 5ème année · ENSIASD Taroudant</p>
+    <p class="lead" data-en="I build deep learning models, AI agents and full stack applications — from medical image segmentation to LLM-powered decision agents.">Je conçois des modèles de deep learning, des agents IA et des applications full stack — de la segmentation d'images médicales aux agents de décision basés sur des LLM.</p>
+    <div class="btns">
+      <a href="#projects" class="btn p" data-en="View my projects">Voir mes projets</a>
+      <a href="CV_Wijdane_Abouzaid.pdf" class="btn" download>CV (PDF)</a>
+      <a href="https://github.com/wijdaneabou" target="_blank" rel="noopener noreferrer" class="btn">GitHub</a>
+      <a href="https://www.linkedin.com/in/wijdane-abouzaid-0b4256255" target="_blank" rel="noopener noreferrer" class="btn">LinkedIn</a>
+    </div>
+    <span class="badge" data-en="🎓 Seeking a 6-month graduation internship (PFE) from February 2027">🎓 À la recherche d'un stage PFE de 6 mois à partir de février 2027</span>
+  </div>
+  <img class="photo" src="pro_image.PNG" alt="Photo de Wijdane Abouzaid">
+</div></section>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <h2 class="section-title fade-in">À propos de moi</h2>
-            <div class="about-content fade-in">
-                <div class="about-image">
-                    <img src="pro_image.PNG" alt="Photo de Wijdane Abouzaid" loading="lazy">
-                </div>
-                <div class="about-text">
-                    <h3>Data Scientist passionnée par l'IA</h3>
-                    <p>Je possède une expérience pratique couvrant le machine learning, la vision par ordinateur, l'analyse de Big Data et le développement full-stack. Je développe actuellement mon expertise dans le cadre d'un cycle d'ingénieur en Data Science, Big Data & IA à l'ENSIASD de Taroudant.</p>
-                    <p>Au fil de mes stages chez Medios Santé, YOOL Education, CINK et BECAGRI Consulting, j'ai appris à transformer des jeux de données complexes en informations exploitables, allant des systèmes de prédiction en temps réel au traitement intelligent de documents et d'images médicales.</p>
-                    <div class="skills">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">MERN Stack</span>
-                        <span class="skill-tag">Big Data</span>
-                        <span class="skill-tag">Power BI</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">SQL</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="about" class="alt"><div class="wrap two">
+  <div>
+    <p class="tag" data-en="About">À propos</p>
+    <h2 data-en="Data, AI & full stack">Data, IA & full stack</h2>
+    <p data-en="Fifth-year engineering student in Data Science, Big Data & AI. Hands-on experience in machine learning, computer vision, LLM applications and full stack development, built through five internships and several academic projects.">Élève ingénieure en 5ème année, filière Science des Données, Big Data & IA. Expérience pratique en machine learning, vision par ordinateur, applications LLM et développement full stack, acquise à travers cinq stages et plusieurs projets académiques.</p>
+  </div>
+  <div class="edu">
+    <div><b data-en="Engineering Degree — Data Science, Big Data & AI">Cycle d'ingénieur — Science des Données, Big Data & IA</b><span data-en="National School of AI and Data Science (ENSIASD), Taroudant">École Nationale Supérieure d'IA et Sciences des Données (ENSIASD), Taroudant</span><small>2024 – 2027</small></div>
+    <div><b data-en="Professional Bachelor — Software & IT Systems Engineering">Licence Pro — Ingénierie des Systèmes Informatiques et Logiciels</b><span data-en="School of Technology (EST), Essaouira">École Supérieure de Technologie (EST), Essaouira</span><small>2023 – 2024</small></div>
+    <div><b data-en="DUT — Business Intelligence & Data Science">DUT — Informatique Décisionnelle et Science de Données</b><span data-en="School of Technology (EST), Essaouira">École Supérieure de Technologie (EST), Essaouira</span><small>2021 – 2023</small></div>
+    <div><b data-en="Baccalaureate — Physical Sciences">Baccalauréat — Sciences Physiques</b><span>Lycée Had Dra, Essaouira</span><small>2020 – 2021</small></div>
+  </div>
+</div></section>
 
-    <!-- Projects Section -->
-    <section class="section projects" id="projects">
-        <div class="container">
-            <h2 class="section-title fade-in">Mes Projets</h2>
-            <div class="projects-grid fade-in">
-                <article class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-lungs" aria-hidden="true"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Segmentation Pulmonaire par Deep Learning</h3>
-                        <p>Système de segmentation automatique des poumons (droit/gauche) sur radiographies thoraciques, en comparant plusieurs architectures de deep learning. Meilleur modèle : U-Net++ / ResNet34 (Dice 0,9893), déployé via une interface Streamlit.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">PyTorch</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">Streamlit</span>
-                        </div>
-                        <a href="https://github.com/wijdaneabou/chest-xray-lung-segmentation" class="project-link" target="_blank" rel="noopener noreferrer">Voir le code <i class="fab fa-github"></i></a>
-                    </div>
-                </article>
+<section id="exp"><div class="wrap">
+  <p class="tag" data-en="Experience">Expérience</p>
+  <h2 data-en="Professional experience">Expérience professionnelle</h2>
+  <div class="tl">
+    <article><div class="d" data-en="Jul 2026 – Sep 2026">Juil. 2026 – Sept. 2026</div><h3 data-en="AI Intern">Stagiaire en Intelligence Artificielle</h3><div class="co">Medios Santé, Casablanca</div>
+      <ul>
+        <li data-en="Automatic segmentation of the right and left lungs on chest X-rays.">Segmentation automatique des poumons (droit/gauche) sur radiographies thoraciques.</li>
+        <li data-en="Image preprocessing and patient-leakage correction across train/validation/test splits.">Prétraitement des images et correction de la fuite de patients entre train/validation/test.</li>
+        <li data-en="Comparison of several deep learning architectures; best model: U-Net++ / ResNet34 (Dice 0.9893).">Comparaison de plusieurs architectures de deep learning ; meilleur modèle : U-Net++ / ResNet34 (Dice 0,9893).</li>
+        <li data-en="Evaluation with Dice and IoU, deployment through a Streamlit interface.">Évaluation Dice et IoU, déploiement via interface Streamlit.</li>
+      </ul>
+      <div class="chips"><span>Python</span><span>PyTorch</span><span>OpenCV</span><span>NumPy</span><span>scikit-learn</span><span>Pandas</span><span>FastAPI</span><span>Streamlit</span></div></article>
+    <article><div class="d" data-en="Jul 2025 – Sep 2025">Juil. 2025 – Sept. 2025</div><h3 data-en="AI Development Intern">Stagiaire en Développement IA</h3><div class="co">YOOL Education, Casablanca</div>
+      <ul>
+        <li data-en="Full stack application that automatically generates quizzes (MCQ) from pedagogical parameters, using an LLM.">Application full stack générant automatiquement des QCM à partir de paramètres pédagogiques via LLM.</li>
+        <li data-en="Prompt design and LLM API integration to produce structured questions and answers.">Conception du prompt et intégration de l'API LLM pour produire des questions et réponses structurées.</li>
+        <li data-en="Spring Boot backend (REST API, MySQL storage) and React interface.">Backend Spring Boot (API REST, stockage MySQL) et interface React.</li>
+      </ul>
+      <div class="chips"><span>Spring Boot</span><span>React</span><span>REST API</span><span>LLM</span><span>MySQL</span></div></article>
+    <article><div class="d" data-en="Apr 2024 – Jun 2024">Avr. 2024 – Juin 2024</div><h3 data-en="Full Stack Development Intern">Stagiaire en Développement full stack</h3><div class="co">CINK, Khouribga</div>
+      <ul>
+        <li data-en="Community web platform (MERN stack): resources, training, events and networking.">Plateforme web communautaire MERN stack : ressources, formations, événements, réseautage.</li>
+        <li data-en="REST API with Node.js/Express, MongoDB data modeling, responsive React interface.">API REST Node.js/Express, modélisation MongoDB, interface React responsive.</li>
+      </ul>
+      <div class="chips"><span>JavaScript</span><span>Node.js</span><span>Express</span><span>React</span><span>MongoDB</span></div></article>
+    <article><div class="d" data-en="Apr 2023 – Jun 2023">Avr. 2023 – Juin 2023</div><h3 data-en="Software Development Intern">Stagiaire en Développement logiciel</h3><div class="co">BECAGRI Consulting, Essaouira</div>
+      <ul><li data-en="Desktop fertilization app recommending fertilizers by soil and plant type; SQLite database and PyQt5 interface.">Application desktop de fertilisation agricole avec recommandations d'engrais selon le sol et la plante ; base SQLite et interface PyQt5.</li></ul>
+      <div class="chips"><span>Python</span><span>PyQt5</span><span>SQLite</span></div></article>
+    <article><div class="d" data-en="August 2022">Août 2022</div><h3 data-en="Web Development Intern">Stagiaire en Développement Web</h3><div class="co">BECAGRI Consulting, Essaouira</div>
+      <ul><li data-en="Responsive showcase websites presenting the company's services and activities.">Sites web vitrines responsive présentant les services et activités de l'entreprise.</li></ul>
+      <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span></div></article>
+  </div>
+</div></section>
 
-                <article class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-robot" aria-hidden="true"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>StockAI — Agent IA pour la Gestion des Stocks</h3>
-                        <p>Agent IA autonome capable d'analyser les stocks en temps réel, prévoir la consommation, recommander les réapprovisionnements via LLM, puis automatiser les commandes via API fournisseur avec validation humaine. Projet réalisé au Hackathon GEIW 2026.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">LLM</span>
-                            <span class="tech-tag">API</span>
-                        </div>
-                    </div>
-                </article>
+<section id="projects" class="alt"><div class="wrap">
+  <p class="tag" data-en="Work">Réalisations</p>
+  <h2 data-en="Projects">Projets</h2>
 
-                <article class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-glasses" aria-hidden="true"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Essai Virtuel de Lunettes avec IA</h3>
-                        <p>Application d'essai virtuel avec détection en temps réel du visage et recommandation automatique de lunettes selon la forme faciale détectée par IA.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">JavaFX</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">MobileNetV2</span>
-                        </div>
-                        <a href="https://github.com/wijdaneabou/VirtualGlasses" class="project-link" target="_blank" rel="noopener noreferrer">Voir le code <i class="fab fa-github"></i></a>
-                    </div>
-                </article>
+  <div class="proj">
+    <span class="k" data-en="Internship · Medios Santé">Stage · Medios Santé</span>
+    <h3 data-en="Lung segmentation on chest X-rays — Deep Learning">Segmentation pulmonaire sur radiographies thoraciques — Deep Learning</h3>
+    <p data-en="Automatic segmentation of the right and left lungs, comparing several deep learning architectures within a complete pipeline: preprocessing, patient-leakage correction, Dice/IoU evaluation. Best model: U-Net++ with a ResNet34 encoder (Dice 0.9893), deployed through a Streamlit interface.">Segmentation automatique des poumons (droit/gauche) en comparant plusieurs architectures de deep learning dans un pipeline complet : prétraitement, correction de la fuite de patients, évaluation Dice/IoU. Meilleur modèle : U-Net++ avec encodeur ResNet34 (Dice 0,9893), déployé via une interface Streamlit.</p>
+    <div class="chips"><span>Python</span><span>PyTorch</span><span>segmentation_models_pytorch</span><span>OpenCV</span><span>Streamlit</span></div>
+    <a class="plink" href="https://github.com/wijdaneabou/chest-xray-lung-segmentation" target="_blank" rel="noopener noreferrer" data-en="View the code →">Voir le code →</a>
+  </div>
 
-                <article class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-globe" aria-hidden="true"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Plateforme Web CINK</h3>
-                        <p>Conception et développement d'une plateforme web complète pour la communauté CINK, centralisant l'accès aux ressources, formations et événements de réseautage.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Express.js</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                        </div>
-                    </div>
-                </article>
+  <div class="mini">
+    <div class="card"><span class="k">Hackathon GEIW 2026</span><h3 data-en="StockAI — AI agent for stock management">StockAI — Agent IA de gestion des stocks</h3><p data-en="Reads stock data in real time, forecasts consumption, decides via an LLM (AWS Bedrock), requires human validation, then places orders automatically through a supplier API.">Lit les stocks en temps réel, prévoit la consommation, décide via un LLM (AWS Bedrock), soumet la décision à validation humaine, puis commande automatiquement via API fournisseur.</p><div class="chips"><span>Python</span><span>AWS Bedrock</span><span>Flask</span><span>Streamlit</span><span>Pandas</span><span>SQLite</span></div></div>
+    <div class="card"><span class="k" data-en="Academic project">Projet académique</span><h3 data-en="Virtual glasses try-on with AI">Essai virtuel de lunettes avec IA</h3><p data-en="Real-time face detection and automatic glasses recommendation based on face shape.">Détection du visage en temps réel et recommandation automatique de lunettes selon la forme du visage.</p><div class="chips"><span>Java</span><span>JavaFX</span><span>OpenCV</span><span>MobileNetV2</span></div><a class="plink" href="https://github.com/wijdaneabou/VirtualGlasses" target="_blank" rel="noopener noreferrer" data-en="View the code →">Voir le code →</a></div>
+    <div class="card"><span class="k" data-en="Academic project">Projet académique</span><h3 data-en="Water quality anomaly detection">Détection d'anomalies — qualité de l'eau</h3><p data-en="Unsupervised detection of anomalies in water quality data with Isolation Forest.">Détection non supervisée d'anomalies dans les données de qualité de l'eau avec Isolation Forest.</p><div class="chips"><span>Python</span><span>Isolation Forest</span><span>scikit-learn</span><span>Pandas</span></div></div>
+    <div class="card"><span class="k">Internship · YOOL Education</span><h3 data-en="LLM-powered quiz generator">Générateur de quiz QCM par LLM</h3><p data-en="Generates MCQs from a title, subject and level using a Large Language Model.">Génération de QCM à partir d'un titre, d'une matière et d'un niveau via un Large Language Model.</p><div class="chips"><span>Spring Boot</span><span>React</span><span>LLM</span><span>MySQL</span></div></div>
+    <div class="card"><span class="k">Internship · CINK</span><h3 data-en="CINK community platform">Plateforme web CINK</h3><p data-en="Complete MERN web platform centralizing resources, training and networking events.">Plateforme web MERN complète centralisant ressources, formations et événements de réseautage.</p><div class="chips"><span>MongoDB</span><span>Express</span><span>React</span><span>Node.js</span></div></div>
+    <div class="card"><span class="k">Internship · BECAGRI</span><h3 data-en="Fertilization application">Application de fertilisation</h3><p data-en="Desktop app recommending fertilizers according to soil and plant type.">Application desktop recommandant les engrais selon le type de sol et de plante.</p><div class="chips"><span>Python</span><span>PyQt5</span><span>SQLite</span></div></div>
+  </div>
+</div></section>
 
-                <article class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-seedling" aria-hidden="true"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Application de Fertilisation</h3>
-                        <p>Application desktop de fertilisation pour l'agriculture, fournissant des recommandations d'engrais à utiliser selon le type de sol et de plante.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">PyQt5</span>
-                            <span class="tech-tag">SQLite</span>
-                        </div>
-                    </div>
-                </article>
+<section id="skills"><div class="wrap">
+  <p class="tag" data-en="Expertise">Expertise</p>
+  <h2 data-en="Technical skills">Compétences techniques</h2>
+  <div class="sk">
+    <div class="card"><h3 data-en="Languages">Langages</h3><div class="chips"><span>Python</span><span>Java</span><span>JavaScript</span><span>SQL</span></div></div>
+    <div class="card"><h3>IA / Machine Learning</h3><div class="chips"><span>Scikit-learn</span><span>PyTorch</span><span>TensorFlow</span><span>OpenCV</span><span>Deep Learning</span><span>Computer Vision</span></div></div>
+    <div class="card"><h3>Big Data</h3><div class="chips"><span>Hadoop</span><span>Spark</span><span>HDFS</span><span>MapReduce</span><span>Kafka</span><span>Elasticsearch</span><span>Logstash</span><span>Kibana</span></div></div>
+    <div class="card"><h3>MLOps & Cloud</h3><div class="chips"><span>Docker</span><span>AWS</span><span>GitHub Actions</span></div></div>
+    <div class="card"><h3 data-en="Visualization">Visualisation</h3><div class="chips"><span>Power BI</span><span>Matplotlib</span></div></div>
+    <div class="card"><h3 data-en="Databases">Bases de données</h3><div class="chips"><span>MySQL</span><span>MongoDB</span><span>SQLite</span><span>Oracle</span></div></div>
+    <div class="card"><h3>Web</h3><div class="chips"><span>React</span><span>Node.js</span><span>Express</span><span>Spring Boot</span><span>REST API</span></div></div>
+    <div class="card"><h3 data-en="Languages spoken">Langues</h3><div class="chips"><span data-en="Arabic (native)">Arabe (langue maternelle)</span><span data-en="French (fluent)">Français (courant)</span><span data-en="English (professional)">Anglais (professionnel)</span></div></div>
+  </div>
+</div></section>
 
-                <article class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-clipboard-question" aria-hidden="true"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Générateur de Quiz QCM par LLM</h3>
-                        <p>Application intelligente générant automatiquement des QCM à partir de paramètres pédagogiques (titre, matière, niveau) à l'aide d'un Large Language Model.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Spring Boot</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">LLM</span>
-                            <span class="tech-tag">MySQL</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
+<section id="contact" class="alt"><div class="cta">
+  <p class="tag" data-en="Open to opportunities">Ouverte aux opportunités</p>
+  <h2 data-en="Let's talk about your PFE offer">Parlons de votre offre de stage PFE</h2>
+  <p data-en="I'm looking for a 6-month graduation internship starting February 2027 in Big Data, Data Science and Artificial Intelligence.">Je recherche un stage de fin d'études de 6 mois à partir de février 2027 en Big Data, Data Science et Intelligence Artificielle.</p>
+  <div class="ct">
+    <a class="btn p" href="mailto:wijdane.abouzaid3@gmail.com">wijdane.abouzaid3@gmail.com</a>
+    <a class="btn" href="tel:+212689602836">+212 6 89 60 28 36</a>
+    <a class="btn" href="https://www.linkedin.com/in/wijdane-abouzaid-0b4256255" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a class="btn" href="https://github.com/wijdaneabou" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </div>
+</div></section>
 
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title fade-in">Contactez-moi</h2>
-                <p class="fade-in">Vous avez un projet en tête ? N'hésitez pas à me contacter pour en discuter !</p>
-                
-                <form class="contact-form fade-in" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Votre nom" required>
-                        <input type="email" name="email" placeholder="Votre email" required>
-                    </div>
-                    <input type="text" name="subject" placeholder="Sujet" required>
-                    <textarea name="message" rows="5" placeholder="Votre message" required></textarea>
-                    <button type="submit" class="submit-btn">Envoyer le message</button>
-                </form>
-            </div>
-        </div>
-    </section>
+<footer>© 2026 Wijdane Abouzaid · Casablanca, Maroc</footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="mailto:wijdane.abouzaid3@gmail.com" title="Email" aria-label="Email">
-                    <i class="fas fa-envelope" aria-hidden="true"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/wijdane-abouzaid-0b4256255" title="LinkedIn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="https://github.com/wijdaneabou" title="GitHub" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <i class="fab fa-github" aria-hidden="true"></i>
-                </a>
-                <a href="tel:+212689602836" title="Téléphone" aria-label="Téléphone">
-                    <i class="fas fa-phone" aria-hidden="true"></i>
-                </a>
-            </div>
-            <p>&copy; 2026 Wijdane Abouzaid. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <script>
-        
-        let ticking = false;
-        const navbar = document.getElementById('navbar');
-        
-        function updateNavbar() {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            ticking = false;
-        }
-        
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateNavbar);
-                ticking = true;
-            }
-        });
-
-       
-        const burger = document.getElementById('burger');
-        const navMenu = document.getElementById('nav-menu');
-
-        burger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        
-        navMenu.addEventListener('click', (e) => {
-            if (e.target.classList.contains('nav-link')) {
-                navMenu.classList.remove('active');
-            }
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-       
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Form submission 
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const submitBtn = e.target.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Envoi en cours...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('Message envoyé avec succès !');
-                e.target.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 1000);
-        });
-
-     
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    </script>
+<script>
+const $=s=>document.querySelector(s),root=document.documentElement;
+// Thème
+const setTheme=t=>{root.dataset.theme=t;$('#theme').textContent=t==='dark'?'☀️':'🌙';try{localStorage.setItem('theme',t)}catch(e){}};
+let th='light';try{th=localStorage.getItem('theme')||'light'}catch(e){}
+setTheme(th);$('#theme').onclick=()=>setTheme(root.dataset.theme==='dark'?'light':'dark');
+// Langue FR/EN
+let lang='fr';
+document.querySelectorAll('[data-en]').forEach(e=>e.dataset.fr=e.innerHTML);
+$('#lang').onclick=()=>{
+  lang=lang==='fr'?'en':'fr';root.lang=lang;
+  document.querySelectorAll('[data-en]').forEach(e=>e.innerHTML=lang==='en'?e.dataset.en:e.dataset.fr);
+  $('#lang').textContent=lang==='fr'?'EN':'FR';
+};
+</script>
 </body>
 </html>
